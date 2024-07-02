@@ -2,17 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Borben_Chat</title>
+    <title>Chatbot Conversation</title>
 </head>
 <body>
-    <h1>Borben</h1>
-    <div id = "left">
-        <label for = "ytext">You: </label>
-        <input id = "ytext" type = "text"/>
+    <h1>Borben - Mental Health Chatbot</h1>
+    <div id="conversation">
+        {% for message in conversation %}
+            <p class="{{ message.pop('user') ? 'user' : 'bot' }}">{{ message.pop('text') }}</p>
+        {% endfor %}
     </div>
-    <div id = "right">
-        <p id = "answer"></p>
-    </div>
+    <form action="/" method="POST">
+        <input type="text" name="prompt" placeholder="Type your message here">
+        <button type="submit">Send</button>
+    </form>
+
+    <script>
+        // Optional: Scroll to the bottom of the conversation on new messages
+        const conversationDiv = document.getElementById('conversation');
+        conversationDiv.scrollTop = conversationDiv.scrollHeight;
+    </script>
 </body>
 </html>
