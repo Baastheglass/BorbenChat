@@ -23,7 +23,7 @@ class chatBot:
         self.preload_Conversation()
     
     def generationConfig(self):
-        return genai.types.GenerationConfig(temperature = 0.1, maximum_sequence_length = 20)
+        return genai.types.GenerationConfig(temperature = 0.1)#, maximum_sequence_length = 20)
     
     def clearConversation(self):
         self.conversation = self.model.start_chat(history = [])
@@ -52,7 +52,8 @@ class chatBot:
             self.conversation_history.append(construct_message(response.text, 'model'))
             return response
         except Exception as excep:
-            raise GenAIException(excep.message)
+             print(f"An error occurred: {excep}")
+            #raise GenAIException(excep.message)
         
     def history(self):
         conversation_history = [{'role': message.role, 'text': message.parts[0].text} for message in self.conversation.history]

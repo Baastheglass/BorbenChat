@@ -7,13 +7,26 @@
 <body>
     <h1>Borben - Mental Health Chatbot</h1>
     <div id="conversation">
-        {% for message in conversation %}
-            <p class="{{ message.pop('user') ? 'user' : 'bot' }}">{{ message.pop('text') }}</p>
-        {% endfor %}
+        <p> 
+            <p>
+                {%for message in conversation%}
+                    {%if message['role'] == "user" %}
+                        User: {{message['parts']}}
+                        <br/>
+                    {%endif%}
+                    {%if message['role'] == "model"%}
+                        Bot: {{message['parts']}}
+                        <br/>
+                    {%endif%}
+                    <br/>
+                {%endfor%}
+            </p> 
+        </p>
     </div>
-    <form action="/" method="POST">
+    <form action="/chat" method="POST">
         <input type="text" name="prompt" placeholder="Type your message here">
         <button type="submit">Send</button>
+        <p name = "answer">{{response}}</p>
     </form>
 
     <script>

@@ -1,0 +1,15 @@
+body
+{
+    background-color: #9CF6F6;
+    color: aliceblue;
+}
+input
+{
+    background-color: #B5D6D6;
+    color: aliceblue;
+}
+{% comment %} <p>{%for message in conversation%}
+            {{message('user')}}
+            {{message('bot')}}
+            {%endfor%}
+        </p> {% endcomment %}
