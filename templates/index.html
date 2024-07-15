@@ -3,36 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <title>Chatbot Conversation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <link type = "text/css" rel = "stylesheet" href = "../static/styles.css">
 </head>
 <body>
     <h1>Borben - Mental Health Chatbot</h1>
-    <div id="conversation">
-        <p> 
-            <p>
-                {%for message in conversation%}
-                    {%if message['role'] == "user" %}
-                        User: {{message['parts']}}
-                        <br/>
-                    {%endif%}
-                    {%if message['role'] == "model"%}
-                        Bot: {{message['parts']}}
-                        <br/>
-                    {%endif%}
+    <div id = "image"><img src = "../static/clouds.png" id = "cloud"/></div>
+    <div id = "image2"><img src = "../static/clouds2.png" id = "cloud2"/></div>
+    <form method = "POST" action = "/restart"><button id = "restart"><img src = "../static/restart.svg"/></button></form>
+    <div id = "square">
+        <div id="conversation">
+            {%for message in conversation%}
+                {%if message['role'] == "user" %}
+                    <p class = "userMessage">User: {{message['parts']}}</p>
                     <br/>
-                {%endfor%}
-            </p> 
-        </p>
+                {%endif%}
+                {%if message['role'] == "model"%}
+                    <p class = "BotMessage">Bot: {{message['parts']}}</p>
+                    <br/>
+                {%endif%}
+            {%endfor%}
+        </div>
     </div>
-    <form action="/chat" method="POST">
-        <input type="text" name="prompt" placeholder="Type your message here">
-        <button type="submit">Send</button>
+    <form action="/chat" method="POST" id = "putin">
+        <input type="text" name="prompt" placeholder="Type your message here" id = "chat"/>
+        <button type="submit" id = "submit"><img src = "../static/send.svg"/></button>
         <p name = "answer">{{response}}</p>
     </form>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script>
-        // Optional: Scroll to the bottom of the conversation on new messages
-        const conversationDiv = document.getElementById('conversation');
-        conversationDiv.scrollTop = conversationDiv.scrollHeight;
+        $(document).ready(function() {
+        $("#chat-form").submit(function(e) {
+            e.preventDefault(); // Prevent default form submission
+
+            var user_prompt = $("#chat").val();
+
+            // Send AJAX request
+            $.ajax({
+            url: "/chat",
+            type: "POST",
+            data: { prompt: user_prompt },
+            success: function(response) {
+                // Update conversation history and chatbot response
+                $("#conversation-history").html(response.conversation);
+                $("#chatbot-response").text(response.answer);
+                $("#user-prompt").val(""); // Clear input field after sending
+            }
+            });
+        });
+
+        $("#restart").click(function() {
+            $.ajax({
+            url: "/restart",
+            type: "POST",
+            success: function(response) {
+                // Update conversation history and clear chatbot response
+                $("#conversation-history").html(response.conversation);
+                $("#chatbot-response").text("");
+            }
+            });
+        });
+        });
     </script>
 </body>
 </html>

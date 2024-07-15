@@ -1,0 +1,244 @@
+body
+{
+    background-color: #758694;
+    color: #FFFFFF;
+    background-size: cover;
+    /* font-family: "Roboto Mono", monospace;
+    font-optical-sizing: auto;
+    font-style: normal; */
+    font-family: "Varela Round", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    overflow: hidden;
+}
+#square
+{
+    background-color: #405D72;
+    height: 75vh;
+    border-radius: 20px;
+    z-index: -1;
+}
+#submit, #restart
+{
+    background-color: #405D72;
+}
+#restart
+{
+    position: absolute;
+    right: 0;
+    top: 0;
+    animation-name: fadeIn;
+    animation-duration: 5s;
+}
+#chat
+{
+    background-color: #405D72;
+    /* font-family: "Roboto Mono", monospace;
+    font-optical-sizing: auto;
+    font-style: normal; */
+    font-family: "Varela Round", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.4rem;
+    margin-bottom: 4%;
+    width: 45vw;
+    color: white;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    border-radius: 20px;
+    padding-left: 1%;
+    margin-right: 0%;
+}
+#chat:hover, #submit:hover, #restart:hover
+{
+    border: solid 2px white;
+}
+.userMessage:hover, .BotMessage:hover
+{
+    color: #758694;
+    cursor: default;
+}
+#submit
+{
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    border-radius: 50%;
+}
+#submit:active
+{
+    animation-name: bigClick;
+    animation-duration: 2s;
+}
+#submit:active::after
+{
+    animation-name: bigClickAfter;
+    animation-duration: 2s;
+}
+#chat::placeholder
+{
+    color:white;
+}
+#putin
+{
+    position: absolute;
+    bottom: 0;
+    width: 50vw;
+    animation-name: floatDown;
+    animation-duration: 5s;
+}
+#image
+{
+    animation-name: fadeIn;
+    animation-duration: 12s;
+}
+#image2
+{
+    animation-name: fadeIn;
+    animation-duration: 10s;
+}
+#cloud
+{
+    position: absolute;
+    margin-left: 67.5%;
+    top: 0;
+    width: 30vw;
+    z-index: 0;
+    animation-name: float;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+}
+#cloud2
+{
+    position:absolute;
+    width: 40vw;
+    z-index: 0;
+    animation-name: float;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    margin-left: 60.5%;
+}
+#putin > *
+{
+    display: inline-block;
+}
+.userMessage, .BotMessage
+{
+    animation-name: floatUp;
+    animation-duration: 4s;
+    margin-left: 1%;
+    margin-top: 1%;
+    transition: font-size 0.5;
+}
+h1
+{
+    text-align: center;
+    font-size: 5rem;
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+    animation-name: floatUph1;
+    animation-duration: 3s;
+}
+#square
+{
+    border: solid 2px white;
+}
+@keyframes floatUp
+{
+    0% 
+    {
+        margin-bottom: 200%;
+        opacity: 0%;
+    }
+    50%
+    {
+        opacity: 0%;
+    }
+    100%
+    {
+        margin-bottom: 1%;
+        opacity: 100%;
+    }
+}
+@keyframes floatUph1
+{
+    0% 
+    {
+        margin-bottom: 200%;
+        opacity: 0%;
+    }
+    50%
+    {
+        opacity: 0%;
+    }
+    100%
+    {
+        margin-bottom: 0.5%;
+        opacity: 100%;
+    }
+}
+
+@keyframes floatDown
+{
+    0% 
+    {
+        margin-top: 200%;
+        opacity: 0%;
+    }
+    50%
+    {
+        opacity: 0%;
+    }
+    100%
+    {
+        margin-top: 0.5%;
+        opacity: 100%;
+    }
+}
+@keyframes fadeIn
+{
+    0%
+    {
+        opacity: 0%;
+    }
+    100%
+    {
+        opacity: 100%;
+    }
+}
+@keyframes float
+{
+    0%
+    {
+        top: 3%;
+    }
+    50%
+    {
+        top: 0%;
+    }
+    100%
+    {
+        top: 3%;
+    }
+}
+@keyframes bigClick
+{
+    0% 
+    {
+        scale: 100%;
+    }
+    100%
+    {
+        scale: 200%;
+    }
+}
+@keyframes bigClickAfter
+{
+    0% 
+    {
+        scale: 200%;
+    }
+    100%
+    {
+        scale: 100%;
+    }
+}
