@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Chatbot Conversation</title>
+    <title>Borben</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
@@ -38,36 +38,57 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
-        $("#chat-form").submit(function(e) {
+          $("#putin").submit(function(e) 
+        {
             e.preventDefault(); // Prevent default form submission
-
             var user_prompt = $("#chat").val();
-
+            console.log(user_prompt)
             // Send AJAX request
             $.ajax({
-            url: "/chat",
-            type: "POST",
-            data: { prompt: user_prompt },
-            success: function(response) {
-                // Update conversation history and chatbot response
-                $("#conversation-history").html(response.conversation);
-                $("#chatbot-response").text(response.answer);
-                $("#user-prompt").val(""); // Clear input field after sending
-            }
+              url: "/chat",
+              type: "POST",
+              data: { prompt: user_prompt },
+              success: function(response) {
+                // Update conversation history (already handled in the template)
+                // Update chatbot response using the received answer
+                //console.log("Success!")
+                //console.log(response.answer)
+                //console.log(response.conversation)
+                //$("#conversation").html(response.conversation)
+                //console.log("Added to flow")
+                console.log("Success!")
+                $("#chat").val(""); // Clear input field after sending
+                response.conversation
+                console.log(typeof(response.conversation))
+                console.log(response.conversation.length)
+                let messages = []
+                console.log(typeof(messages))
+                for(let i = 0; i != response.conversation.length; i++)
+                  messages.push(response.conversation[i].parts)
+                for(let i = 0; i != messages.length; i++)
+                  console.log(messages[i])
+                for(let i = 0; i != messages.length; i++)
+                {
+                  if(i % 2 == 0)
+                    $("#conversation").append('<p class = "userMessage"> You:'  + messages[i] +  "</p> <br/>")
+                  else
+                    $("#conversation").append('<p class = "BotMessage"> Borben:' + messages[i] + '</p> <br/>')
+                }
+              }
             });
         });
-
-        $("#restart").click(function() {
+    
+          $("#restart").click(function() {
             $.ajax({
-            url: "/restart",
-            type: "POST",
-            success: function(response) {
+              url: "/restart",
+              type: "POST",
+              success: function(response) {
                 // Update conversation history and clear chatbot response
-                $("#conversation-history").html(response.conversation);
-                $("#chatbot-response").text("");
-            }
+                $("#conversation").html(response.conversation);
+                $("#answer").text("");
+              }
             });
-        });
+          });
         });
     </script>
 </body>
