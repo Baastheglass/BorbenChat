@@ -44,9 +44,10 @@ def chat():
   user_prompt = request.form["prompt"]
   response = bot.send_Prompt(prompt=user_prompt)
   conversation_history = bot.conversation_history[2:]  # Assuming initial greetings are not relevant
+  return_history = bot.conversation_history[-2:]
   #return render_template("index.html", conversation = conversation_history, answer = f"{response.text}")
   print(response.text)
-  return jsonify({"conversation": conversation_history, "answer": response.text})  # Return data as JSON
+  return jsonify({"conversation": return_history, "answer": response.text})  # Return data as JSON
   
 # @app.route("/restart", methods = ["POST"])
 # def restart():
