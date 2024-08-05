@@ -70,20 +70,22 @@
                 for(let i = 0; i != messages.length; i++)
                 {
                   if(i % 2 == 0)
-                    $("#conversation").append('<p class = "userMessage"> You:'  + messages[i] +  "</p> <br/>")
+                    $("#conversation").append('<p class = "userMessage"> You: '  + messages[i] +  "</p> <br/>")
                   else
-                    $("#conversation").append('<p class = "BotMessage"> Borben:' + messages[i] + '</p> <br/>')
+                    $("#conversation").append('<p class = "BotMessage"> Borben: ' + messages[i] + '</p> <br/>')
                 }
               }
             });
         });
     
-          $("#restart").click(function() {
+          $("#restart").click(function(e) {
+            e.preventDefault();
             $.ajax({
               url: "/restart",
               type: "POST",
               success: function(response) {
                 // Update conversation history and clear chatbot response
+                console.log("Buttonpress success!")
                 $("#conversation").html(response.conversation);
                 $("#answer").text("");
               }
